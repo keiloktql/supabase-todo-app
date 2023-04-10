@@ -1,5 +1,5 @@
 {
-  "extends": ["next/core-web-vitals", "airbnb", "prettier"],
+  "extends": ["next/core-web-vitals", "airbnb", "prettier", "plugin:tailwindcss/recommended"],
   "rules": {
     "import/no-extraneous-dependencies": 0,
     "import/prefer-default-export": 0,
@@ -20,10 +20,15 @@
     "react/function-component-definition": 0,
     "react/jsx-no-useless-fragment": 0,
     "react/no-array-index-key": 0, // temp
-    "react/jsx-props-no-spreading": 0, // temp
+    "react/jsx-props-no-spreading": 0, // temp,
+    "react/button-has-type": 0,
+    "react/prop-types": 0,
     "jsx-a11y/click-events-have-key-events": 0,
     "jsx-a11y/no-static-element-interactions": 0,
     "jsx-a11y/interactive-supports-focus": 0,
+    "tailwindcss/classnames-order": "warn",
+    "tailwindcss/no-custom-classname": "warn",
+    "tailwindcss/no-contradicting-classname": "error",
     "no-undef": 0,
     "no-unused-expressions": 0,
     "no-shadow": 0,

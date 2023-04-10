@@ -1,4 +1,4 @@
-import { BTN_ENUM } from "../../../config/enum";
+import { BTN_ENUM } from "../../../config/constants";
 
 export interface ButtonProps {
   disabled?: boolean;
@@ -8,6 +8,7 @@ export interface ButtonProps {
   onClickFn?: () => any;
   customClassName?: string | null;
   children?: any;
+  type?: "button" | "submit" | "reset" | undefined;
 }
 
 export interface ExternalLinkButtonProps {

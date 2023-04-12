@@ -14,7 +14,7 @@ const Header = () => {
       <div className="m-auto flex h-full w-full max-w-screen-xl justify-between px-16">
         {/* 1280px */}
         <div className="flex">
-          <Link className="flex" href="/dashboard">
+          <Link className="flex" href="/">
             <Image src={Logo} width={146} height={48} alt="Logo" />
           </Link>
           <ul className="mx-16 flex h-full items-center justify-center">

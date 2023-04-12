@@ -9,7 +9,7 @@ export enum BTN_ENUM {
 
 export const BTN_META = {
   [BTN_ENUM.PRIMARY]: {
-    className: "bg-primary text-white"
+    className: "bg-primary-600 text-white"
   },
   [BTN_ENUM.PRIMARY_EMPTY]: {
     className: "hover:underline"

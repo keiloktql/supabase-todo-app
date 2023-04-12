@@ -1,29 +1,53 @@
+/* eslint-disable tailwindcss/no-custom-classname */
 /* eslint-disable no-unused-vars */
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import * as Yup from "yup";
 import { Form, Formik } from "formik";
 import MainLayout from "@/components/layout/MainLayout";
 import LogoRaw from "@/public/assets/svg/logo-raw.svg";
 import Button from "@/components/shared/Button";
 import FormField from "@/components/shared/FormField";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
+import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 import { LoginFormValues } from "./types";
 
 const Login = () => {
   const validationSchema = Yup.object().shape({
-    username: Yup.string().required("Required field."),
+    email: Yup.string().email("Invalid format.").required("Required field."),
     password: Yup.string().required("Required field.")
   });
+  const router = useRouter();
+  const supabaseClient = useSupabaseClient();
+  const [loading, setLoading] = useState(false);
+  const [smh, setSmh] = useState(false); // flag to trigger form shaking animation
 
-  const onSubmitFn = ({ username, password }: LoginFormValues) => {
-    console.log("submitted fn");
+  const onSubmitFn = async ({ email, password }: LoginFormValues) => {
+    setLoading(true);
+    const { error } = await supabaseClient.auth.signInWithPassword({
+      email,
+      password
+    });
+    if (error) {
+      setSmh(true);
+      toast.error("An error has occured.");
+      setLoading(false);
+    } else {
+      router.push("/dashboard");
+    }
   };
 
   return (
     <MainLayout>
-      <div className="w-full">
-        <div className="mx-auto mt-36 flex h-full max-w-[360px] flex-col items-center">
+      <div className="smh-container w-full">
+        <div
+          className={`smh-card${
+            smh ? "--animate" : ""
+          } mx-auto my-36 flex h-full max-w-[360px] flex-col items-center`}
+          onAnimationEnd={() => setSmh(false)}
+        >
           <Image src={LogoRaw} width={44} height={44} alt="logo" />
           <h1 className="text-display-sm font-semibold text-gray-900">
             Log in to your account
@@ -33,7 +57,7 @@ const Login = () => {
           </p>
           <Formik
             initialValues={{
-              username: "",
+              email: "",
               password: ""
             }}
             validationSchema={validationSchema}
@@ -42,10 +66,10 @@ const Login = () => {
             {({ isValid, dirty }) => (
               <Form className="mt-8 flex w-full flex-col">
                 <FormField
-                  fieldName="username"
-                  fieldLabel="Username"
-                  placeholder="Enter your username"
-                  disabled={false}
+                  fieldName="email"
+                  fieldLabel="Email"
+                  placeholder="Enter your email"
+                  disabled={loading}
                   className="w-full"
                 />
                 <div>
@@ -53,8 +77,9 @@ const Login = () => {
                     fieldName="password"
                     fieldLabel="Password"
                     placeholder="Enter your password"
-                    disabled={false}
+                    disabled={loading}
                     className="mt-4 w-full"
+                    type="password"
                   />
                   <Link
                     className="mt-2 block text-primary-700"
@@ -66,8 +91,8 @@ const Login = () => {
 
                 <Button
                   type="submit"
-                  disabled={!dirty || !isValid}
-                  onClickFn={() => console.log("Clicked sign in btn")}
+                  loading={loading}
+                  disabled={!dirty || !isValid || loading}
                   customClassName="mt-8"
                 >
                   Log in

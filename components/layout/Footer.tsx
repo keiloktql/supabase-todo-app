@@ -94,12 +94,14 @@ const Footer = () => {
           </div>
         </section>
         {/* Main footer section */}
-        <section className="flex justify-center">
+        <section className="flex justify-center px-16">
           <div className="flex w-full max-w-screen-xl flex-col">
             {/* Top */}
             <div className="flex justify-between py-14">
               <div>
-                <Image src={Logo} width={146} height={48} alt="Logo" />
+                <Link href="/">
+                  <Image src={Logo} width={146} height={48} alt="Logo" />
+                </Link>
                 <p className="mt-2 text-gray-600">
                   Plan, organise and get your work done.
                 </p>

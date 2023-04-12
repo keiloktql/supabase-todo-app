@@ -3,6 +3,7 @@ import { FOOTER_NAV_HEADER_ENUM } from "@/config/constants";
 export interface MainLayoutProps {
   children?: any;
   title?: string;
+  className?: string;
 }
 export interface SEOProps {
   title?: string;

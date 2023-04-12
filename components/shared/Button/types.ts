@@ -2,6 +2,7 @@ import { BTN_ENUM } from "../../../config/constants";
 
 export interface ButtonProps {
   disabled?: boolean;
+  loading?: boolean;
   text?: string;
   variation?: BTN_ENUM;
   arrow?: boolean;

@@ -5,6 +5,8 @@ export const SUPABASE_CONFIG = {
   anonKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 };
 
+export const PROTECTED_ROUTES = ["/dashboard"];
+
 // Enums and its meta info
 export enum BTN_ENUM {
   PRIMARY = "PRIMARY",

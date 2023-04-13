@@ -9,6 +9,10 @@ import type { AppProps } from "next/app";
 import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { SessionContextProvider, Session } from "@supabase/auth-helpers-react";
 import { SUPABASE_CONFIG } from "@/config/constants";
+import AuthProvider from "@/context/AuthContext";
+import AuthGuard from "@/utility/auth/AuthGuard";
+import { useRouter } from "next/router";
+import { isProtectedRouteCheck } from "@/utility/auth/AuthUtils";
 
 export default function App({
   Component,
@@ -22,24 +26,37 @@ export default function App({
       supabaseKey: SUPABASE_CONFIG.anonKey
     })
   );
+
+  const router = useRouter();
+  const isProtectedRoute = isProtectedRouteCheck(router.pathname);
+
   return (
     <ErrorBoundary>
       <SessionContextProvider
         supabaseClient={supabaseClient}
         initialSession={pageProps.initialSession}
       >
-        <ToastContainer
-          position="top-right"
-          autoClose={1000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
-        <Component {...pageProps} />
+        <AuthProvider>
+          <Component {...pageProps} />
+          <ToastContainer
+            position="top-right"
+            autoClose={1000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
+          {isProtectedRoute ? (
+            <AuthGuard>
+              <Component {...pageProps} />
+            </AuthGuard>
+          ) : (
+            <Component {...pageProps} />
+          )}
+        </AuthProvider>
       </SessionContextProvider>
     </ErrorBoundary>
   );

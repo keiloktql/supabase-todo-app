@@ -1,5 +1,4 @@
 import MainLayout from "@/components/layout/MainLayout";
-import React from "react";
 
 const Dashboard = () => (
   <MainLayout>
@@ -11,3 +10,5 @@ const Dashboard = () => (
 );
 
 export default Dashboard;
+
+Dashboard.requireAuth = true;

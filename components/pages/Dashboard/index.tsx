@@ -2,6 +2,8 @@ import MainLayout from "@/components/layout/MainLayout";
 import * as Yup from "yup";
 import { Form, Formik } from "formik";
 import FormField from "@/components/shared/FormField";
+import Button from "@/components/shared/Button";
+import TodoItem from "./TodoItem";
 
 const Dashboard = () => {
   const validationSchema = Yup.object().shape({
@@ -21,7 +23,7 @@ const Dashboard = () => {
             What are your goals for today? Allez!
           </p>
         </div>
-        <div className="flex w-full max-w-screen-sm">
+        <div className="flex w-full max-w-screen-sm flex-col">
           <Formik
             initialValues={{
               todoData: ""
@@ -29,15 +31,25 @@ const Dashboard = () => {
             validationSchema={validationSchema}
             onSubmit={onSubmitFn}
           >
-            <Form className="mt-8 flex w-full">
-              <FormField
-                fieldName="todoData"
-                placeholder="Walk the dog at 6pm..."
-                disabled={false}
-                className="w-full"
-              />
-            </Form>
+            {({ isValid, dirty }) => (
+              <Form className="mt-8 flex w-full">
+                <FormField
+                  fieldName="todoData"
+                  placeholder="Walk the dog at 6pm..."
+                  disabled={false}
+                  className="w-full"
+                />
+                <Button
+                  disabled={!dirty || !isValid}
+                  type="submit"
+                  customClassName="ml-4"
+                >
+                  Add
+                </Button>
+              </Form>
+            )}
           </Formik>
+          <TodoItem timestamp="Friday 2:20pm">Walk the dog</TodoItem>
         </div>
       </div>
     </MainLayout>

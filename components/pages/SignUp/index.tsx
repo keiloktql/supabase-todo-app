@@ -18,7 +18,7 @@ const SignUpPage = () => {
     firstName: Yup.string().required("Required field."),
     lastName: Yup.string().required("Required field."),
     email: Yup.string().email("Invalid format.").required("Required field."),
-    username: Yup.string().required("Required field."),
+    userName: Yup.string().required("Required field."),
     password: Yup.string()
       .required("Required field.")
       .min(8, "Minimum 8 characters.")
@@ -29,7 +29,7 @@ const SignUpPage = () => {
   const supabaseClient = useSupabaseClient();
 
   const onSubmitFn = async (
-    { firstName, lastName, email, username, password }: SignUpFormValues,
+    { firstName, lastName, email, userName, password }: SignUpFormValues,
     resetForm: any
   ) => {
     setLoading(true);
@@ -40,7 +40,7 @@ const SignUpPage = () => {
         data: {
           firstName,
           lastName,
-          username
+          userName
         }
       }
     });
@@ -80,7 +80,7 @@ const SignUpPage = () => {
               firstName: "",
               lastName: "",
               email: "",
-              username: "",
+              userName: "",
               password: ""
             }}
             validationSchema={validationSchema}
@@ -112,7 +112,7 @@ const SignUpPage = () => {
                   className="mt-4 w-full"
                 />
                 <FormField
-                  fieldName="username"
+                  fieldName="userName"
                   fieldLabel="Username"
                   placeholder="Enter your username"
                   disabled={loading}

@@ -113,7 +113,7 @@ export const FOOTER_NAV_LINKS_META = {
         href: "/tutorials"
       },
       {
-        text: "support",
+        text: "Support",
         href: "/support"
       }
     ]

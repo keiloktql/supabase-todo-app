@@ -37,7 +37,6 @@ export default function App({
         initialSession={pageProps.initialSession}
       >
         <AuthProvider>
-          <Component {...pageProps} />
           <ToastContainer
             position="top-right"
             autoClose={1000}

@@ -9,9 +9,10 @@ import MainLayout from "@/components/layout/MainLayout";
 import LogoRaw from "@/public/assets/svg/logo-raw.svg";
 import Button from "@/components/shared/Button";
 import FormField from "@/components/shared/FormField";
-import { useSupabaseClient } from "@supabase/auth-helpers-react";
+import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
+import useAuth from "@/hooks/useAuth";
 import { LoginFormValues } from "./types";
 
 const Login = () => {
@@ -23,6 +24,8 @@ const Login = () => {
   const supabaseClient = useSupabaseClient();
   const [loading, setLoading] = useState(false);
   const [smh, setSmh] = useState(false); // flag to trigger form shaking animation
+  const { auth, setAuth } = useAuth();
+  const user = useUser();
 
   const onSubmitFn = async ({ email, password }: LoginFormValues) => {
     setLoading(true);
@@ -34,9 +37,9 @@ const Login = () => {
       setSmh(true);
       toast.error("An error has occured.");
       setLoading(false);
-    } else {
-      router.push("/dashboard");
+      return;
     }
+    router.push("/dashboard");
   };
 
   return (

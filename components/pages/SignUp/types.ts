@@ -2,6 +2,6 @@ export interface SignUpFormValues {
   firstName: string;
   lastName: string;
   email: string;
-  username: string;
+  userName: string;
   password: string;
 }

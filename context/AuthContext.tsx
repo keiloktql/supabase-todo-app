@@ -1,3 +1,4 @@
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import {
   Dispatch,
   ReactNode,
@@ -7,15 +8,10 @@ import {
   useState
 } from "react";
 
-type UserType = {
-  firstName: string | null;
-  lastName: string | null;
-  email: string | null;
-};
-
 type AuthType = {
   loading: boolean;
-  userInfo: UserType | null;
+  event: string | null;
+  userInfo: any;
 };
 
 interface UserContextInterface {
@@ -28,14 +24,28 @@ export const AuthContext = createContext<Partial<UserContextInterface>>({});
 const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [auth, setAuth] = useState<AuthType>({
     loading: true,
+    event: null,
     userInfo: null
   });
+  const supabaseClient = useSupabaseClient();
 
+  // On initial load, check if user info is loaded
   useEffect(() => {
-    setTimeout(() => {
-      setAuth((prevState) => ({ ...prevState, loading: false }));
-    }, 2000);
+    (async () => {
+      const user = await supabaseClient.auth.getUser();
+      if (!user.data.user) {
+        setAuth((prevVal) => ({ ...prevVal, loading: false }));
+      }
+    })();
   }, []);
+
+  // Determine if user is logged in
+  supabaseClient.auth.onAuthStateChange((event, session) => {
+    if (event === "SIGNED_OUT")
+      setAuth({ loading: false, event, userInfo: null });
+    if (event === "SIGNED_IN")
+      setAuth({ loading: false, event, userInfo: session?.user });
+  });
 
   return (
     <AuthContext.Provider value={{ auth, setAuth }}>

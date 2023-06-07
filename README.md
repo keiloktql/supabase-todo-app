@@ -1,38 +1,52 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# TodoList App with Supabase Integration (Next.js)
+
+![](https://github.com/keiloktql/supabase-todo-app/blob/main/promotion/poster-1.png)
+
+This repository contains a TodoList application built with [Next.js](https://nextjs.org/) and integrated with [Supabase](https://supabase.io/) for authentication and database functionalities. With this app, users can create, manage, and track their tasks easily.
+
+## Core Features
+
+- [x] User authentication using Supabase
+- [x] Create new tasks
+- [x] Mark tasks as complete
+- [x] Delete tasks
+- [x] Beautiful UI
+- [ ] Progress bar at the top when navigating between pages
+- [ ] User management with Clerk
+
+## Technologies Used
+
+- [NextJS](https://nextjs.org)
+- [Supabase](https://supabase.com)
+- [Figma](https://www.figma.com)
+- [Untitled UI](https://www.untitledui.com)
+- [Tailwindcss](https://tailwindcss.com)
 
 ## Getting Started
 
-First, run the development server:
+To run this TodoList app locally, follow these steps:
+
+1. Clone this repository to your local machine using `git clone https://github.com/your-username/todo-app-supabase-nextjs.git`
+2. Navigate to the project directory: `cd supabase-todo-app`
+3. Install the dependencies: `npm i`
+4. Configure the Supabase project by updating the following values in the `.env.local` file:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+  NEXT_PUBLIC_SUPABASE_URL=
+  NEXT_PUBLIC_SUPABASE_ANON_KEY=
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+> Note: Replace `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` with the appropriate values from your Supabase project.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+5. Run the development server: `npm run dev`
+6. Open your browser and visit `http://localhost:3000` to access the TodoList app.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+> Note: Before running the app, make sure you have set up your Supabase project and obtained the necessary API keys. You can find detailed instructions on how to do this in the [Supabase documentation](https://supabase.io/docs/guides/api#api-access).
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## License
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+This project is licensed under the [MIT License](LICENSE).
 
-## Learn More
+## More Images
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+![](https://github.com/keiloktql/supabase-todo-app/blob/main/promotion/poster-1.png)

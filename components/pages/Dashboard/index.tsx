@@ -1,17 +1,50 @@
+/* eslint-disable prefer-const */
+/* eslint-disable no-unused-vars */
 import MainLayout from "@/components/layout/MainLayout";
 import * as Yup from "yup";
 import { Form, Formik } from "formik";
+import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import FormField from "@/components/shared/FormField";
 import Button from "@/components/shared/Button";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import TodoItem from "./TodoItem";
 
 const Dashboard = () => {
   const validationSchema = Yup.object().shape({
     todoData: Yup.string().required("Required field.")
   });
+  const supabaseClient = useSupabaseClient();
+  const user = useUser();
+  const [todos, setTodos] = useState<any>([]);
+  const [reloadTodos, setReloadTodos] = useState<boolean>(false);
 
-  const onSubmitFn = () => {
-    console.log("clicked submit");
+  useEffect(() => {
+    (async () => {
+      const { data, error } = await supabaseClient
+        .from("todos")
+        .select()
+        .order("created_at", { ascending: false });
+      console.log(data);
+      if (error) {
+        console.log(error);
+        return;
+      }
+      setTodos(data as any);
+    })();
+  }, [reloadTodos]);
+
+  const onSubmitFn = async ({ todoData }: any, resetForm: any) => {
+    const { error } = await supabaseClient
+      .from("todos")
+      .insert({ content: todoData, user_uuid: user?.id });
+    if (error) {
+      console.log(error);
+      toast.error("There was an error");
+      return;
+    }
+    setReloadTodos((state: boolean) => !state);
+    resetForm();
   };
 
   return (
@@ -29,7 +62,7 @@ const Dashboard = () => {
               todoData: ""
             }}
             validationSchema={validationSchema}
-            onSubmit={onSubmitFn}
+            onSubmit={(values, { resetForm }) => onSubmitFn(values, resetForm)}
           >
             {({ isValid, dirty }) => (
               <Form className="mt-8 flex w-full">
@@ -49,7 +82,24 @@ const Dashboard = () => {
               </Form>
             )}
           </Formik>
-          <TodoItem timestamp="Friday 2:20pm">Walk the dog</TodoItem>
+          <div className="mt-4">
+            {todos.length ? (
+              todos.map((todo: any, index: number) => (
+                <TodoItem
+                  key={index}
+                  uuid={todo.uuid}
+                  done={todo.completed}
+                  timestamp={todo.created_at}
+                  setReloadTodos={setReloadTodos}
+                  className="mt-4"
+                >
+                  {todo.content}
+                </TodoItem>
+              ))
+            ) : (
+              <p>There are no todos</p>
+            )}
+          </div>
         </div>
       </div>
     </MainLayout>

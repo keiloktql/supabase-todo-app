@@ -1,6 +1,6 @@
 # TodoList App with Supabase Integration (Next.js)
 
-![](https://github.com/keiloktql/supabase-todo-app/blob/main/publicity/poster-1.png)
+![](https://github.com/keiloktql/supabase-todo-app/blob/master/publicity/poster-1.png)
 
 This repository contains a TodoList application built with [Next.js](https://nextjs.org/) and integrated with [Supabase](https://supabase.io/) for authentication and database functionalities. With this app, users can create, manage, and track their tasks easily.
 
@@ -49,4 +49,4 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## More Images
 
-![](https://github.com/keiloktql/supabase-todo-app/blob/main/publicity/poster-1.png)
+![](https://github.com/keiloktql/supabase-todo-app/blob/master/publicity/poster-2.png)

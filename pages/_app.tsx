@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 
@@ -14,6 +14,9 @@ import AuthGuard from "@/utility/auth/AuthGuard";
 import { useRouter } from "next/router";
 import { isProtectedRouteCheck } from "@/utility/auth/AuthUtils";
 
+import NProgress from "nprogress";
+import "nprogress/nprogress.css";
+
 export default function App({
   Component,
   pageProps
@@ -26,8 +29,14 @@ export default function App({
       supabaseKey: SUPABASE_CONFIG.anonKey
     })
   );
-
   const router = useRouter();
+
+  useEffect(() => {
+    NProgress.configure({ showSpinner: false });
+    router.events.on("routeChangeStart", () => NProgress.start());
+    router.events.on("routeChangeComplete", () => NProgress.done());
+    router.events.on("routeChangeError", () => NProgress.done());
+  }, []);
   const isProtectedRoute = isProtectedRouteCheck(router.pathname);
 
   return (

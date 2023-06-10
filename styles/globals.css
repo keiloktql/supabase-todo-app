@@ -61,3 +61,7 @@ a:active {
 .smh-card--animate {
   animation: smhAnimation ease-in-out 400ms;
 }
+
+#nprogress .bar {
+  background-color: #9e77ed !important;
+}

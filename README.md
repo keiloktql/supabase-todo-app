@@ -11,7 +11,7 @@ This repository contains a TodoList application built with [Next.js](https://nex
 - [x] Mark tasks as complete
 - [x] Delete tasks
 - [x] Beautiful UI
-- [ ] Progress bar at the top when navigating between pages
+- [x] Progress bar at the top when navigating between pages using NProgress
 - [ ] User management with Clerk
 
 ## Technologies Used

@@ -37,7 +37,7 @@ const Dashboard = () => {
   const onSubmitFn = async ({ todoData }: any, resetForm: any) => {
     const { error } = await supabaseClient
       .from("todos")
-      .insert({ content: todoData, user_uuid: user?.id });
+      .insert({ content: todoData, uuid: user?.id });
     if (error) {
       console.log(error);
       toast.error("There was an error");
@@ -51,12 +51,12 @@ const Dashboard = () => {
     <MainLayout className="bg-gray-50">
       <div className="flex flex-col items-center justify-center px-16">
         <div className="mt-20 text-center">
-          <h1 className="text-display-lg font-bold">To-do List</h1>
+          <h1 className="font-bold text-display-lg">To-do List</h1>
           <p className="text-xl text-gray-600">
             What are your goals for today? Allez!
           </p>
         </div>
-        <div className="flex w-full max-w-screen-sm flex-col">
+        <div className="flex flex-col w-full max-w-screen-sm">
           <Formik
             initialValues={{
               todoData: ""
@@ -65,7 +65,7 @@ const Dashboard = () => {
             onSubmit={(values, { resetForm }) => onSubmitFn(values, resetForm)}
           >
             {({ isValid, dirty }) => (
-              <Form className="mt-8 flex w-full">
+              <Form className="flex w-full mt-8">
                 <FormField
                   fieldName="todoData"
                   placeholder="Walk the dog at 6pm..."
